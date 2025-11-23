@@ -1,0 +1,484 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>
+      GalenosMed
+    </title>
+    <!-- BLOQUE DE ESTILOS CSS COMPARTIDO POR TODAS LAS PAGINAS -->
+    <link type="image/x-icon" rel="shortcut icon" href="{% static 'core/img/GalenosLOGONUEVO - copia.png' %}" />
+    <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous" />
+    <link type="text/css" rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/dataTables.bootstrap5.min.css" />
+    <link type="text/css" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+    <link type="text/css" rel="stylesheet" href="{% static 'core/css/base.css' %}">
+    <link type="text/css" rel="stylesheet" href="{% static 'core/css/style.css' %}">
+    <link type="text/css" rel="stylesheet" href="{% static 'core/css/page-layout.css' %}">
+    <!-- BLOQUE DE ESTILOS CSS PERSONALIZADOS PARA CADA PAGINA -->
+    {% block stylesheet %}
+    <link type="text/css" rel="stylesheet" href="{% static 'core/css/style_2.css' %}">
+    {% endblock stylesheet %}
+
+    <!-- BLOQUE DE JAVASCRIPT EN HEAD, PERSONALIZADOS PARA CADA PAGINA -->
+    {% block script-head %}
+      
+    {% endblock script-head %}
+</head>
+<style>
+  body {
+           font-family: 'Roboto', sans-serif;
+           margin: 0;
+           padding: 0;
+           background-color: #f5f5f5;
+       }
+       .header {
+           background-color: #00a99d;
+           padding: 10px 20px;
+           display: flex;
+           justify-content: space-between;
+           align-items: center;
+       }
+       .header input[type="text"] {
+           padding: 5px;
+           border: none;
+           border-radius: 3px;
+       }
+       .header .search-icon {
+           color: white;
+           margin-left: 10px;
+       }
+       .header .logo {
+           display: flex;
+           align-items: center;
+       }
+       .header .logo img {
+           height: 40px;
+       }
+       .header .menu {
+           display: flex;
+           align-items: center;
+       }
+       .header .menu a {
+           color: white;
+           text-decoration: none;
+           margin: 0 10px;
+       }
+       .header .menu .highlight {
+           background-color: #8dc63f;
+           padding: 5px 10px;
+           border-radius: 3px;
+       }
+       .main-banner {
+           display: flex;
+           justify-content: space-between;
+           align-items: center;
+           padding: 20px;
+           background-color: white;
+       }
+       .main-banner img {
+           width: 100%;
+           border-radius: 10px;
+       }
+       .main-banner .banner-text {
+           max-width: 50%;
+       }
+       .main-banner .banner-text h1 {
+           color: #00a99d;
+           font-size: 24px;
+       }
+       .main-banner .banner-text p {
+           color: #666;
+       }
+       .main-banner .banner-text button {
+           background-color: #00a99d;
+           color: white;
+           border: none;
+           padding: 10px 20px;
+           border-radius: 5px;
+           cursor: pointer;
+       }
+       .services {
+           display: flex;
+           justify-content: space-around;
+           padding: 20px;
+           background-color: white;
+           margin-top: 20px;
+       }
+       .services .service {
+           text-align: center;
+           padding: 10px;
+           border-radius: 10px;
+           background-color: #e6f7f7;
+           width: 18%;
+       }
+       .services .service i {
+           font-size: 30px;
+           color: #00a99d;
+       }
+       .services .service p {
+           color: #00a99d;
+           font-weight: bold;
+       }
+       .plans {
+           padding: 20px;
+           background-color: white;
+           margin-top: 20px;
+       }
+       .plans h2 {
+           color: #00a99d;
+           text-align: center;
+       }
+       .plans .plan-cards {
+           display: flex;
+           justify-content: space-around;
+           margin-top: 20px;
+       }
+       .plans .plan-card {
+           background-color: #f5f5f5;
+           border-radius: 10px;
+           text-align: center;
+           padding: 20px;
+           width: 18%;
+       }
+       .plans .plan-card img {
+           width: 100%;
+           border-radius: 10px;
+       }
+       .plans .plan-card p {
+           color: #00a99d;
+           font-weight: bold;
+       }
+       .plans .plan-card .price {
+           color: #ff6600;
+           font-size: 24px;
+       }
+       .plans .plan-card button {
+           background-color: #8dc63f;
+           color: white;
+           border: none;
+           padding: 10px 20px;
+           border-radius: 5px;
+           cursor: pointer;
+       }
+       .footer {
+           padding: 20px;
+           background-color: white;
+           margin-top: 20px;
+       }
+       .footer .footer-section {
+           display: flex;
+           justify-content: space-around;
+       }
+       .footer .footer-section .footer-item {
+           text-align: center;
+           width: 18%;
+       }
+       .footer .footer-section .footer-item i {
+           font-size: 30px;
+           color: #00a99d;
+       }
+       .footer .footer-section .footer-item p {
+           color: #00a99d;
+           font-weight: bold;
+       }
+       /* Asegura que el contenedor de la lista de navegación (menu) esté alineado correctamente */
+.menu .nav-item {
+    display: flex;
+    align-items: center; /* Centra verticalmente el texto */
+}
+
+/* Alinea los dropdowns con los demás enlaces de menú */
+.nav-item.dropdown {
+    display: flex;
+    align-items: center;
+}
+
+/* Asegura que los elementos del dropdown estén alineados correctamente */
+.nav-item .dropdown-menu {
+    position: absolute; /* Para evitar que los elementos se salgan de lugar */
+    top: 100%; /* Asegura que el dropdown aparezca justo debajo del link */
+    left: 0;
+}
+
+/* Asegura que el texto dentro de los dropdowns se alinee verticalmente */
+.dropdown-item {
+    display: flex;
+    align-items: center;
+}
+
+/* Si es necesario, ajusta la altura de los elementos del dropdown para un mejor alineamiento */
+.nav-item .dropdown-menu li {
+    padding: 5px 10px; /* Puedes ajustar el espaciado según sea necesario */
+}
+
+/* También puedes hacer que los items se alineen de una manera más homogénea */
+.nav-item a {
+    display: flex;
+    align-items: center;
+    justify-content: center; /* Para asegurarse de que los elementos estén alineados */
+}
+
+ </style>
+<body>
+
+  <div class="header">
+    <div class="logo">
+     <a  class="navbar-brand"  href="{% url 'inicio' %}" style="font-family: 'Roboto', sans-serif">
+      <img src="{% static 'core/img/GalenosLOGONUEVO.png' %}" alt="Logo de Galenos"  style="height: 40px"/>
+    </div>
+    <div class="search">
+      <input placeholder="¿Que buscas?" type="text" style="text-align: center"/>
+      <i class="fas fa-search search-icon">
+      </i>
+     </div>
+    <div class="menu">
+      <ul class="nav">
+        <!-- Servicios Dropdown -->
+        <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                Servicios
+            </a>
+            <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="#" style="color: black;">Seguros y Planes</a></li>
+                <li><a class="dropdown-item" href="#" style="color: black;">Especialidades</a></li>
+                <li><a class="dropdown-item" href="#" style="color: black;">Información al paciente</a></li>
+                <li><a class="dropdown-item" href="#" style="color: black;">Mundo Profesional</a></li>
+
+                {% if user.is_authenticated %}
+                <li><a class="dropdown-item" href="{% url 'AgendarCita' %}" style="color: black;">Agendar Cita</a></li>
+                {% endif %}
+            </ul>
+        </li>
+    </ul>
+     <a href="#">
+         Seguros y Planes
+     </a>
+     <a href="#">
+         Especialidades
+     </a>
+     <a href="#">
+         Mundo Profesional
+     </a>
+     {% if user.is_authenticated and user.is_staff and user.is_superuser %}
+
+          
+          <ul class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"  aria-expanded="false">
+              Administrar
+            </a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" style="color: black;" href="{% url 'usuarios' 'crear' '0' %}" > Gestionar Usuarios </a></li>
+              <li><a class="dropdown-item" style="color: black;" > Agenda Médicos </a></li>
+              <li><a class="dropdown-item" style="color: black;" > Calendario Base </a></li>
+              <li><a class="dropdown-item" style="color: black;" > Gestion de comisiones</a></li>
+              <li><a class="dropdown-item" style="color: black;" > Gestion de citas </a></li>
+              <li><hr class="dropdown-divider"></li>
+              
+              {% if user.is_authenticated and user.is_superuser and user.is_active %}
+              <li><a class="dropdown-item" style="color: black;" href="/admin"> Administrador de Django </a></li>
+              {% endif %}
+          </ul>
+        </ul>
+          {% endif %}
+        
+          
+          
+          {% if user.is_authenticated %}
+          <ul class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"  aria-expanded="false" href="{% url 'ingresar' %}">
+              {% if user.is_superuser %}
+              <span class="text-danger fw-bold">
+                {% elif user.is_staff %}
+                <span class="text-success fw-bold">
+                  {% else %}
+                  <span>
+                    {% endif %}
+                    {{ first_name }} {{ last_name }}
+                    {% if user.perfil.subscrito %}
+                    (premium)
+                    {% endif %}
+                  </span>
+            </a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" style="color: black;" href="{% url 'misdatos' %}"> Mis datos </a></li>
+              <li><a class="dropdown-item" style="color: black;" href="{% url 'mipassword' %}"> Cambiar mi contraseña </a></li>
+              {% if not user.is_staff and not user.is_superuser %}
+            
+              {% endif %}
+              <li><hr class="dropdown-divider"></li>
+              <li><a class="dropdown-item" style="color: black;" href="{% url 'salir' %}"> Salir </a></li>
+            </ul>
+          </li>
+          {% endif %}
+     
+     {% if not user.is_authenticated %}
+     <a class="highlight" href="{% url 'ingresar' %}">
+         Iniciar sesión
+     </a>
+     {% endif %}
+  </div>
+  </div>
+
+
+  <!-- BLOQUE DE CONTENIDO PERSONALIZADO DE CADA PAGINA DEL SITIO WEB -->
+  <div class="content m-3 pagelayout-2">
+    {% block content %}
+    
+    {% endblock content %}
+  </div>
+
+
+  <!-- BLOQUE DE PIE DE PAGINA COMPARTIDO POR TODAS LAS PAGINAS -->
+  <footer>
+    <style>
+      body {
+        margin: 0;
+        font-family: Arial, sans-serif;
+      }
+  
+      .footer {
+        background-color: #009999;
+        color: white;
+        padding: 20px 0;
+        text-align: center;
+      }
+  
+      .footer .container {
+        display: flex;
+        justify-content: space-between; /* Espacio uniforme entre los elementos */
+        align-items: flex-start; /* Alinear elementos en la parte superior */
+        max-width: 1200px;
+        margin: 0 auto;
+        flex-wrap: nowrap; /* Evitar que se desborden en filas adicionales */
+      }
+  
+      .footer .container div {
+        flex: 1;
+        padding: 0 15px;
+        text-align: left; /* Alinear el contenido al lado izquierdo */
+      }
+  
+      .footer .container div h3 {
+        margin-top: 0;
+      }
+  
+      .footer .container div ul {
+        list-style: none;
+        padding: 0;
+      }
+  
+      .footer .container div ul li {
+        margin: 5px 0;
+      }
+  
+      .footer .container .logo {
+        flex: 1;
+      }
+  
+      .footer .container .logo img {
+        max-width: 100px;
+        margin-bottom: 10px;
+      }
+  
+      .footer .container .contact {
+        margin-top: 10px;
+        font-size: 14px;
+      }
+  
+      .footer .container .contact i {
+        margin-right: 5px;
+      }
+  
+      .footer .container .social-icons {
+        text-align: center; /* Centrar íconos */
+      }
+  
+      .footer .container .social-icons i {
+        margin: 0 10px;
+        font-size: 20px;
+      }
+    </style>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet" />
+    <div class="footer">
+      <div class="container">
+        <div class="logo">
+          <img alt="RedSalud Logo" src="{% static 'core/img/GalenosMEDlogo.jpg' %}" />
+          <div class="contact">
+            <i class="fas fa-phone-alt"></i> 600 718 6000
+          </div>
+        </div>
+        <div>
+          <h3>ACERCA DE GALENOSMED</h3>
+          <ul>
+            <li>Quiénes somos</li>
+            <li>Inversionistas</li>
+            <li>Sostenibilidad</li>
+            <li>Trabaja con nosotros</li>
+            <li>Línea Ética</li>
+            
+          </ul>
+        </div>
+        <div>
+          <h3>NUESTRA RED</h3>
+          <ul>
+            <li>Clínicas</li>
+            <li>Centros médicos</li>
+            <li>Clínicas dentales</li>
+            <li>Laboratorios</li>
+            <li>Instituto del Cáncer</li>
+          </ul>
+        </div>
+        <div>
+          <h3>ACERCA DE ESTE SITIO</h3>
+          <ul>
+            <li>Términos y Condiciones</li>
+            <li>Noticias</li>
+          </ul>
+          <h3>SUGERENCIAS Y RECLAMOS</h3>
+        </div>
+        <div class="social-icons">
+          <i class="fab fa-facebook-f"></i>
+          <i class="fab fa-twitter"></i>
+          <i class="fab fa-youtube"></i>
+          <i class="fab fa-instagram"></i>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+
+
+ 
+
+
+
+
+  <!-- BLOQUE DE SCRIPTS COMPARTIDOS POR TODAS LAS PAGINAS -->
+  <div class="pagelayout-4">
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.7.0.min.js" integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.5/jquery.validate.min.js" integrity="sha512-rstIgDs0xPgmG6RX1Aba4KV5cWJbAMcvRCVmglpam9SoHZiUCyQVDdH2LPlxoHtrv17XWblE/V/PP+Tr04hbtA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/1.13.5/js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/1.13.5/js/dataTables.bootstrap5.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script type="text/javascript" src="{% static 'core/js/script.js' %}"></script>
+
+    <!-- <div class="instrucciones-para-el-alumno">
+      INSTRUCCIONES PARA EL ALUMNO (ELIMINALO DESPUES DE LEERLO):<br>
+          - Pone aquí tus javascripts globales que compartan todas tus páginas
+    </div> -->
+
+  <!-- BLOQUE DE SCRIPTS PERSONALIZADOS DE CADA PAGINA DEL SITIO WEB -->
+  <div class="pagelayout-5">
+    {% block script %} 
+    {% endblock script %}
+  </div>
+
+  <!-- BLOQUE PARA MOSTRAR MENSAJES EMERGENTES USANDO "SweetAlert2", COMPARTIDO POR TODAS LAS PAGINAS -->
+   <div class="pagelayout-6">
+    {% include 'common/mostrar_mensajes.html' %}
+  </div>
+</body>
+</html>
