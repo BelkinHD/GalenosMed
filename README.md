@@ -1,1 +1,1 @@
-# GalenosMed
+# galenos_med
